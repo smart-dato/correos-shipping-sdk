@@ -11,6 +11,7 @@ abstract class CorreosConnector extends Connector
 {
     public function __construct(
         protected CorreosAuthenticator $correosAuthenticator,
+        protected ?string $baseUrl = null,
     ) {}
 
     protected function defaultHeaders(): array

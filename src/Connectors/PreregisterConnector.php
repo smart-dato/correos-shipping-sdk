@@ -6,6 +6,6 @@ class PreregisterConnector extends CorreosConnector
 {
     public function resolveBaseUrl(): string
     {
-        return config('correos-shipping-sdk.base_urls.preregister');
+        return $this->baseUrl ?? config('correos-shipping-sdk.base_urls.preregister');
     }
 }

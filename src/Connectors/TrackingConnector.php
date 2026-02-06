@@ -6,6 +6,6 @@ class TrackingConnector extends CorreosConnector
 {
     public function resolveBaseUrl(): string
     {
-        return config('correos-shipping-sdk.base_urls.tracking');
+        return $this->baseUrl ?? config('correos-shipping-sdk.base_urls.tracking');
     }
 }

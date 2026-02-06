@@ -1,0 +1,33 @@
+{
+    "shipments": [
+        {
+            "product": "PAFXB",
+            "deliveryMethod": "DOUAOF",
+            "contractNumber": "12345678",
+            "clientNumber": "1234567890",
+            "labellerCode": "0001",
+            "packagesNumber": "1",
+            "sender": {
+                "name": "Test Sender",
+                "address": "Calle Test 1",
+                "locality": "Madrid",
+                "province": "28",
+                "cp": "28001",
+                "country": "ESP"
+            },
+            "addressee": {
+                "name": "Test Addressee",
+                "address": "Calle Dest 2",
+                "locality": "Barcelona",
+                "province": "08",
+                "cp": "08001",
+                "country": "ESP"
+            },
+            "packages": [
+                {
+                    "packageWeightGrams": "500"
+                }
+            ]
+        }
+    ]
+}

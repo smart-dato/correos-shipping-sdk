@@ -1,0 +1,29 @@
+{
+    "refExpedition": "EXP001234567890",
+    "numReferencia": "REF001",
+    "serviceCode": "31",
+    "serviceDescription": "Paq Premium",
+    "entryDate": "06/02/2026",
+    "deliveryDate": null,
+    "deliveryUnit": null,
+    "deliveryProvince": null,
+    "clients": [
+        {
+            "clientCode": "1234567890",
+            "businessName": "Test Company",
+            "typeClient": "R",
+            "address": "Calle Test 1",
+            "locality": "Madrid",
+            "province": "28",
+            "postalCode": "28001",
+            "country": "ESP"
+        }
+    ],
+    "packages": [
+        {
+            "shippingCode": "PQ1DR4A0000012345678",
+            "number": "1"
+        }
+    ],
+    "error": []
+}

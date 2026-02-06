@@ -1,0 +1,18 @@
+{
+    "fileIdentifier": "FILE001",
+    "result": 1,
+    "shipments": [
+        {
+            "validationErrorCount": 0,
+            "shipmentCode": "PQXYZ1234567890",
+            "entryDate": "06/02/2026",
+            "packages": [
+                {
+                    "packageId": "PKG001",
+                    "packageCode": "PQ1DR4A0000012345678"
+                }
+            ],
+            "error": []
+        }
+    ]
+}

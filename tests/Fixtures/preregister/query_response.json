@@ -1,0 +1,24 @@
+{
+    "shipments": [
+        {
+            "shipmentCode": "PQXYZ1234567890",
+            "product": "PAFXB",
+            "deliveryMethod": "DOUAOF",
+            "contractNumber": "12345678",
+            "clientNumber": "1234567890",
+            "labellerCode": "0001",
+            "packagesNumber": "1",
+            "entryDate": "06/02/2026",
+            "sender": null,
+            "addressee": null,
+            "packages": [
+                {
+                    "packageId": "PKG001",
+                    "packageCode": "PQ1DR4A0000012345678"
+                }
+            ],
+            "error": []
+        }
+    ],
+    "error": null
+}

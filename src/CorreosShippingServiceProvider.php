@@ -22,12 +22,12 @@ class CorreosShippingServiceProvider extends PackageServiceProvider
     {
         $this->app->singleton(CorreosAuthenticator::class, function () {
             return new CorreosAuthenticator(
-                oauthClientId: config('correos-shipping-sdk.oauth.client_id', ''),
-                oauthClientSecret: config('correos-shipping-sdk.oauth.client_secret', ''),
-                tokenUrl: config('correos-shipping-sdk.oauth.token_url', ''),
-                scope: config('correos-shipping-sdk.oauth.scope', ''),
-                gatewayClientId: config('correos-shipping-sdk.gateway.client_id', ''),
-                gatewayClientSecret: config('correos-shipping-sdk.gateway.client_secret', ''),
+                oauthClientId: (string) config('correos-shipping-sdk.oauth.client_id'),
+                oauthClientSecret: (string) config('correos-shipping-sdk.oauth.client_secret'),
+                tokenUrl: (string) config('correos-shipping-sdk.oauth.token_url'),
+                scope: (string) config('correos-shipping-sdk.oauth.scope'),
+                gatewayClientId: (string) config('correos-shipping-sdk.gateway.client_id'),
+                gatewayClientSecret: (string) config('correos-shipping-sdk.gateway.client_secret'),
             );
         });
 

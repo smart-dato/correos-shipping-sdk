@@ -2,9 +2,9 @@
 
 namespace SmartDato\CorreosShipping;
 
+use SmartDato\CorreosShipping\Commands\CorreosShippingCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use SmartDato\CorreosShipping\Commands\CorreosShippingCommand;
 
 class CorreosShippingServiceProvider extends PackageServiceProvider
 {

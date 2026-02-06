@@ -30,3 +30,7 @@ phpstan.neon
 testbench.yaml
 /docs
 /coverage
+
+# Ai Generated
+CLAUDE.md
+/.claude

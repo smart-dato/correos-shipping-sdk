@@ -17,9 +17,6 @@ class CorreosShippingServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('correos-shipping-sdk')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_correos_shipping_sdk_table')
-            ->hasCommand(CorreosShippingCommand::class);
+            ->hasConfigFile();
     }
 }

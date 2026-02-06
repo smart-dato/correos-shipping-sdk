@@ -14,22 +14,29 @@ use SmartDato\CorreosShipping\Requests\Labels\PrintLabelsRequest;
 
 class LabelsResource
 {
+    protected ?\Saloon\Http\Response $lastResponse = null;
+
     public function __construct(
         protected LabelsConnector $connector,
     ) {}
 
+    public function lastResponse(): ?\Saloon\Http\Response
+    {
+        return $this->lastResponse;
+    }
+
     public function printLabels(PrintLabelsRequestData $data): LabelsResponseData
     {
-        return $this->connector->send(new PrintLabelsRequest($data))->dtoOrFail();
+        return ($this->lastResponse = $this->connector->send(new PrintLabelsRequest($data)))->dtoOrFail();
     }
 
     public function printDocuments(PrintDocumentsRequestData $data): DocumentResponseData
     {
-        return $this->connector->send(new PrintDocumentsRequest($data))->dtoOrFail();
+        return ($this->lastResponse = $this->connector->send(new PrintDocumentsRequest($data)))->dtoOrFail();
     }
 
     public function getDocumentBackoffice(string $shipment): DocumentBackofficeResponseData
     {
-        return $this->connector->send(new GetDocumentBackofficeRequest($shipment))->dtoOrFail();
+        return ($this->lastResponse = $this->connector->send(new GetDocumentBackofficeRequest($shipment)))->dtoOrFail();
     }
 }

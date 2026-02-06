@@ -12,6 +12,12 @@ use SmartDato\CorreosShipping\Resources\TrackingResource;
 
 class CorreosShipping
 {
+    protected ?PreregisterResource $preregisterResource = null;
+
+    protected ?LabelsResource $labelsResource = null;
+
+    protected ?TrackingResource $trackingResource = null;
+
     public function __construct(
         protected PreregisterConnector $preregisterConnector,
         protected LabelsConnector $labelsConnector,
@@ -53,16 +59,16 @@ class CorreosShipping
 
     public function preregister(): PreregisterResource
     {
-        return new PreregisterResource($this->preregisterConnector);
+        return $this->preregisterResource ??= new PreregisterResource($this->preregisterConnector);
     }
 
     public function labels(): LabelsResource
     {
-        return new LabelsResource($this->labelsConnector);
+        return $this->labelsResource ??= new LabelsResource($this->labelsConnector);
     }
 
     public function tracking(): TrackingResource
     {
-        return new TrackingResource($this->trackingConnector);
+        return $this->trackingResource ??= new TrackingResource($this->trackingConnector);
     }
 }

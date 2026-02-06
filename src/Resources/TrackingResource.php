@@ -10,17 +10,24 @@ use SmartDato\CorreosShipping\Requests\Tracking\SearchShipmentRequest;
 
 class TrackingResource
 {
+    protected ?\Saloon\Http\Response $lastResponse = null;
+
     public function __construct(
         protected TrackingConnector $connector,
     ) {}
 
+    public function lastResponse(): ?\Saloon\Http\Response
+    {
+        return $this->lastResponse;
+    }
+
     public function searchShipment(string $shippingCode): ShipmentSearchResponseData
     {
-        return $this->connector->send(new SearchShipmentRequest($shippingCode))->dtoOrFail();
+        return ($this->lastResponse = $this->connector->send(new SearchShipmentRequest($shippingCode)))->dtoOrFail();
     }
 
     public function getExpedition(string $expeditionCode): ExpeditionResponseData
     {
-        return $this->connector->send(new GetExpeditionRequest($expeditionCode))->dtoOrFail();
+        return ($this->lastResponse = $this->connector->send(new GetExpeditionRequest($expeditionCode)))->dtoOrFail();
     }
 }

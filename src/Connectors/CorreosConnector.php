@@ -19,6 +19,7 @@ abstract class CorreosConnector extends Connector
         return [
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
+            'User-Agent' => 'SmartDato-CorreosShippingSDK/1.0',
         ];
     }
 

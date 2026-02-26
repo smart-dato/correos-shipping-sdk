@@ -20,6 +20,11 @@
             <directory>tests</directory>
         </testsuite>
     </testsuites>
+    <groups>
+        <exclude>
+            <group>sandbox</group>
+        </exclude>
+    </groups>
     <logging>
         <junit outputFile="build/report.junit.xml"/>
     </logging>

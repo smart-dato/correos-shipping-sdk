@@ -31,6 +31,10 @@ testbench.yaml
 /docs
 /coverage
 
+# Environment
+.env
+.env.*
+
 # Ai Generated
 CLAUDE.md
 /.claude

@@ -2,6 +2,10 @@
 
 All notable changes to `correos-shipping-sdk` will be documented in this file.
 
+## 0.0.4 - 2026-03-04
+
+**Full Changelog**: https://github.com/smart-dato/correos-shipping-sdk/compare/0.0.3...v0.0.4
+
 ## 0.0.3 - 2026-02-26
 
 **Full Changelog**: https://github.com/smart-dato/correos-shipping-sdk/compare/0.0.2...0.0.3

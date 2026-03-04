@@ -38,11 +38,13 @@ class CorreosShipping
      *     labels_url?: string,
      *     tracking_url?: string,
      *     verify_ssl?: bool,
+     *     force_ip_resolve?: string,
      * }  $config
      */
     public static function make(array $config): self
     {
         $verifySsl = $config['verify_ssl'] ?? true;
+        $forceIpResolve = $config['force_ip_resolve'] ?? null;
 
         $auth = new CorreosAuthenticator(
             oauthClientId: $config['oauth_client_id'],
@@ -52,12 +54,13 @@ class CorreosShipping
             gatewayClientId: $config['gateway_client_id'],
             gatewayClientSecret: $config['gateway_client_secret'],
             verifySsl: $verifySsl,
+            forceIpResolve: $forceIpResolve,
         );
 
         return new self(
-            new PreregisterConnector($auth, $config['preregister_url'] ?? null, $verifySsl),
-            new LabelsConnector($auth, $config['labels_url'] ?? null, $verifySsl),
-            new TrackingConnector($auth, $config['tracking_url'] ?? null, $verifySsl),
+            new PreregisterConnector($auth, $config['preregister_url'] ?? null, $verifySsl, $forceIpResolve),
+            new LabelsConnector($auth, $config['labels_url'] ?? null, $verifySsl, $forceIpResolve),
+            new TrackingConnector($auth, $config['tracking_url'] ?? null, $verifySsl, $forceIpResolve),
         );
     }
 

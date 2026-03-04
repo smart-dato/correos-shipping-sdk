@@ -49,3 +49,19 @@ it('connectors set default json headers', function () {
     expect($headers)->toHaveKey('Accept', 'application/json')
         ->toHaveKey('Content-Type', 'application/json');
 });
+
+it('connectors set force_ip_resolve in config when provided', function () {
+    $connector = new PreregisterConnector(makeAuthenticator(), forceIpResolve: 'v4');
+
+    $config = $connector->config()->all();
+
+    expect($config)->toHaveKey('force_ip_resolve', 'v4');
+});
+
+it('connectors do not set force_ip_resolve when null', function () {
+    $connector = new PreregisterConnector(makeAuthenticator());
+
+    $config = $connector->config()->all();
+
+    expect($config)->not->toHaveKey('force_ip_resolve');
+});

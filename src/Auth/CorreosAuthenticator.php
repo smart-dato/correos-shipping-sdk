@@ -17,6 +17,7 @@ class CorreosAuthenticator implements Authenticator
         protected string $gatewayClientId,
         protected string $gatewayClientSecret,
         protected bool $verifySsl = true,
+        protected ?string $forceIpResolve = null,
     ) {}
 
     public function set(PendingRequest $pendingRequest): void
@@ -37,7 +38,12 @@ class CorreosAuthenticator implements Authenticator
 
     protected function fetchToken(): string
     {
-        $response = Http::asForm()->withOptions(['verify' => $this->verifySsl])->post($this->tokenUrl, [
+        $options = ['verify' => $this->verifySsl];
+        if ($this->forceIpResolve) {
+            $options['force_ip_resolve'] = $this->forceIpResolve;
+        }
+
+        $response = Http::asForm()->withOptions($options)->post($this->tokenUrl, [
             'grant_type' => 'client_credentials',
             'client_id' => $this->oauthClientId,
             'client_secret' => $this->oauthClientSecret,

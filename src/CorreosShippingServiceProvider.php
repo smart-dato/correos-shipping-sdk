@@ -29,6 +29,7 @@ class CorreosShippingServiceProvider extends PackageServiceProvider
                 gatewayClientId: (string) config('correos-shipping-sdk.gateway.client_id'),
                 gatewayClientSecret: (string) config('correos-shipping-sdk.gateway.client_secret'),
                 verifySsl: (bool) config('correos-shipping-sdk.verify_ssl', true),
+                forceIpResolve: config('correos-shipping-sdk.force_ip_resolve'),
             );
         });
 
@@ -36,6 +37,7 @@ class CorreosShippingServiceProvider extends PackageServiceProvider
             return new PreregisterConnector(
                 $app->make(CorreosAuthenticator::class),
                 verifySsl: (bool) config('correos-shipping-sdk.verify_ssl', true),
+                forceIpResolve: config('correos-shipping-sdk.force_ip_resolve'),
             );
         });
 
@@ -43,6 +45,7 @@ class CorreosShippingServiceProvider extends PackageServiceProvider
             return new LabelsConnector(
                 $app->make(CorreosAuthenticator::class),
                 verifySsl: (bool) config('correos-shipping-sdk.verify_ssl', true),
+                forceIpResolve: config('correos-shipping-sdk.force_ip_resolve'),
             );
         });
 
@@ -50,6 +53,7 @@ class CorreosShippingServiceProvider extends PackageServiceProvider
             return new TrackingConnector(
                 $app->make(CorreosAuthenticator::class),
                 verifySsl: (bool) config('correos-shipping-sdk.verify_ssl', true),
+                forceIpResolve: config('correos-shipping-sdk.force_ip_resolve'),
             );
         });
 

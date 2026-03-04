@@ -17,4 +17,5 @@ return [
         'tracking' => env('CORREOS_TRACKING_URL', 'https://api1.correos.es/support/trackpub/api/v2'),
     ],
     'verify_ssl' => env('CORREOS_VERIFY_SSL', true),
+    'force_ip_resolve' => env('CORREOS_FORCE_IP_RESOLVE'),
 ];

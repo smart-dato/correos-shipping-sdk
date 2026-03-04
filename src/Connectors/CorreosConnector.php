@@ -13,13 +13,20 @@ abstract class CorreosConnector extends Connector
         protected CorreosAuthenticator $correosAuthenticator,
         protected ?string $baseUrl = null,
         protected bool $verifySsl = true,
+        protected ?string $forceIpResolve = null,
     ) {}
 
     protected function defaultConfig(): array
     {
-        return [
+        $config = [
             'verify' => $this->verifySsl,
         ];
+
+        if ($this->forceIpResolve) {
+            $config['force_ip_resolve'] = $this->forceIpResolve;
+        }
+
+        return $config;
     }
 
     protected function defaultHeaders(): array

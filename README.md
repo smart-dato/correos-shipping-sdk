@@ -60,6 +60,7 @@ return [
         'tracking'    => env('CORREOS_TRACKING_URL', 'https://api1.correos.es/support/trackpub/api/v2'),
     ],
     'verify_ssl' => env('CORREOS_VERIFY_SSL', true),
+    'force_ip_resolve' => env('CORREOS_FORCE_IP_RESOLVE'),
 ];
 ```
 
@@ -79,6 +80,12 @@ CORREOS_VERIFY_SSL=false
 ```
 
 > **Warning:** Never disable SSL verification in production.
+
+If the pre-production environment only allows IPv4 connections (e.g., CloudFront blocks IPv6), you can force IPv4 resolution:
+
+```env
+CORREOS_FORCE_IP_RESOLVE=v4
+```
 
 ## Usage
 

@@ -49,6 +49,7 @@ function sandboxPreregisterConnector(): PreregisterConnector
         scope: env('CORREOS_OAUTH_SCOPE', 'AP3 LBS RCG'),
         gatewayClientId: env('CORREOS_GATEWAY_CLIENT_ID'),
         gatewayClientSecret: env('CORREOS_GATEWAY_CLIENT_SECRET'),
+        verifySsl: false,
     );
 
     $connector = new PreregisterConnector($auth, env('CORREOS_PREREGISTER_URL'));

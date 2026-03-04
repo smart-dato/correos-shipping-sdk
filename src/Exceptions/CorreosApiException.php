@@ -19,7 +19,11 @@ class CorreosApiException extends Exception
 
     public static function fromResponse(Response $response): self
     {
-        $data = $response->json();
+        try {
+            $data = $response->json();
+        } catch (\JsonException) {
+            $data = [];
+        }
 
         return new self(
             message: $data['message'] ?? $response->body(),

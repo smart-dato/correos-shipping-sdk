@@ -59,6 +59,7 @@ return [
         'labels'      => env('CORREOS_LABELS_URL', 'https://api1.correos.es/support/labels/api/v1'),
         'tracking'    => env('CORREOS_TRACKING_URL', 'https://api1.correos.es/support/trackpub/api/v2'),
     ],
+    'verify_ssl' => env('CORREOS_VERIFY_SSL', true),
 ];
 ```
 
@@ -70,6 +71,14 @@ CORREOS_PREREGISTER_URL=https://api1.correospre.es/admissions/preregister/api/v1
 CORREOS_LABELS_URL=https://api1.correospre.es/support/labels/api/v1
 CORREOS_TRACKING_URL=https://api1.correospre.es/support/trackpub/api/v2
 ```
+
+If the pre-production environment uses self-signed certificates, you can disable SSL verification:
+
+```env
+CORREOS_VERIFY_SSL=false
+```
+
+> **Warning:** Never disable SSL verification in production.
 
 ## Usage
 

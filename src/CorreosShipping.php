@@ -37,10 +37,13 @@ class CorreosShipping
      *     preregister_url?: string,
      *     labels_url?: string,
      *     tracking_url?: string,
+     *     verify_ssl?: bool,
      * }  $config
      */
     public static function make(array $config): self
     {
+        $verifySsl = $config['verify_ssl'] ?? true;
+
         $auth = new CorreosAuthenticator(
             oauthClientId: $config['oauth_client_id'],
             oauthClientSecret: $config['oauth_client_secret'],
@@ -48,12 +51,13 @@ class CorreosShipping
             scope: $config['scope'] ?? 'AP3 LBS RCG',
             gatewayClientId: $config['gateway_client_id'],
             gatewayClientSecret: $config['gateway_client_secret'],
+            verifySsl: $verifySsl,
         );
 
         return new self(
-            new PreregisterConnector($auth, $config['preregister_url'] ?? null),
-            new LabelsConnector($auth, $config['labels_url'] ?? null),
-            new TrackingConnector($auth, $config['tracking_url'] ?? null),
+            new PreregisterConnector($auth, $config['preregister_url'] ?? null, $verifySsl),
+            new LabelsConnector($auth, $config['labels_url'] ?? null, $verifySsl),
+            new TrackingConnector($auth, $config['tracking_url'] ?? null, $verifySsl),
         );
     }
 

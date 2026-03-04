@@ -28,19 +28,29 @@ class CorreosShippingServiceProvider extends PackageServiceProvider
                 scope: (string) config('correos-shipping-sdk.oauth.scope'),
                 gatewayClientId: (string) config('correos-shipping-sdk.gateway.client_id'),
                 gatewayClientSecret: (string) config('correos-shipping-sdk.gateway.client_secret'),
+                verifySsl: (bool) config('correos-shipping-sdk.verify_ssl', true),
             );
         });
 
         $this->app->singleton(PreregisterConnector::class, function ($app) {
-            return new PreregisterConnector($app->make(CorreosAuthenticator::class));
+            return new PreregisterConnector(
+                $app->make(CorreosAuthenticator::class),
+                verifySsl: (bool) config('correos-shipping-sdk.verify_ssl', true),
+            );
         });
 
         $this->app->singleton(LabelsConnector::class, function ($app) {
-            return new LabelsConnector($app->make(CorreosAuthenticator::class));
+            return new LabelsConnector(
+                $app->make(CorreosAuthenticator::class),
+                verifySsl: (bool) config('correos-shipping-sdk.verify_ssl', true),
+            );
         });
 
         $this->app->singleton(TrackingConnector::class, function ($app) {
-            return new TrackingConnector($app->make(CorreosAuthenticator::class));
+            return new TrackingConnector(
+                $app->make(CorreosAuthenticator::class),
+                verifySsl: (bool) config('correos-shipping-sdk.verify_ssl', true),
+            );
         });
 
         $this->app->singleton(CorreosShipping::class, function ($app) {

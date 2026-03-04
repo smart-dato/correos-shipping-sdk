@@ -16,4 +16,5 @@ return [
         'labels' => env('CORREOS_LABELS_URL', 'https://api1.correos.es/support/labels/api/v1'),
         'tracking' => env('CORREOS_TRACKING_URL', 'https://api1.correos.es/support/trackpub/api/v2'),
     ],
+    'verify_ssl' => env('CORREOS_VERIFY_SSL', true),
 ];

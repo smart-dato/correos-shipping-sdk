@@ -12,7 +12,15 @@ abstract class CorreosConnector extends Connector
     public function __construct(
         protected CorreosAuthenticator $correosAuthenticator,
         protected ?string $baseUrl = null,
+        protected bool $verifySsl = true,
     ) {}
+
+    protected function defaultConfig(): array
+    {
+        return [
+            'verify' => $this->verifySsl,
+        ];
+    }
 
     protected function defaultHeaders(): array
     {

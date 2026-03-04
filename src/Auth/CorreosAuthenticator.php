@@ -16,6 +16,7 @@ class CorreosAuthenticator implements Authenticator
         protected string $scope,
         protected string $gatewayClientId,
         protected string $gatewayClientSecret,
+        protected bool $verifySsl = true,
     ) {}
 
     public function set(PendingRequest $pendingRequest): void
@@ -36,7 +37,7 @@ class CorreosAuthenticator implements Authenticator
 
     protected function fetchToken(): string
     {
-        $response = Http::asForm()->post($this->tokenUrl, [
+        $response = Http::asForm()->withOptions(['verify' => $this->verifySsl])->post($this->tokenUrl, [
             'grant_type' => 'client_credentials',
             'client_id' => $this->oauthClientId,
             'client_secret' => $this->oauthClientSecret,

@@ -2,6 +2,7 @@
 
 namespace SmartDato\CorreosShipping\Data\Preregister;
 
+use SmartDato\CorreosShipping\Enums\ProductCode;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
@@ -13,7 +14,7 @@ class ShipmentData extends Data
      * @param  array<AdditionalValueData>|Optional  $additionalValues
      */
     public function __construct(
-        public string $product,
+        public string|ProductCode $product,
         public string $deliveryMethod,
         public string $contractNumber,
         public string $clientNumber,

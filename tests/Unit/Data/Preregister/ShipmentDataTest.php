@@ -6,6 +6,7 @@ use SmartDato\CorreosShipping\Data\Preregister\DeliveryResponseData;
 use SmartDato\CorreosShipping\Data\Preregister\PackageData;
 use SmartDato\CorreosShipping\Data\Preregister\SenderData;
 use SmartDato\CorreosShipping\Data\Preregister\ShipmentData;
+use SmartDato\CorreosShipping\Enums\ProductCode;
 
 it('creates delivery request data from array', function () {
     $json = file_get_contents(__DIR__.'/../../../Fixtures/preregister/delivery_request.json');
@@ -13,7 +14,7 @@ it('creates delivery request data from array', function () {
 
     expect($data->shipments)->toHaveCount(1)
         ->and($data->shipments[0])->toBeInstanceOf(ShipmentData::class)
-        ->and($data->shipments[0]->product)->toBe('PAFXB')
+        ->and($data->shipments[0]->product)->toBe(ProductCode::PaqPremium)
         ->and($data->shipments[0]->deliveryMethod)->toBe('DOUAOF')
         ->and($data->shipments[0]->contractNumber)->toBe('12345678')
         ->and($data->shipments[0]->sender)->toBeInstanceOf(SenderData::class)

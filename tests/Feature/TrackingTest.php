@@ -12,7 +12,11 @@ use SmartDato\CorreosShipping\Requests\Tracking\SearchShipmentRequest;
 use SmartDato\CorreosShipping\Resources\TrackingResource;
 
 beforeEach(function () {
-    Cache::put('correos_oauth_token', 'fake-test-token', 3600);
+    Cache::put(
+        (new CorreosAuthenticator('id', 'secret', 'https://example.com/token', 'AP3', 'gw-id', 'gw-secret'))->cacheKey(),
+        'fake-test-token',
+        3600,
+    );
 });
 
 function trackingConnector(): TrackingConnector

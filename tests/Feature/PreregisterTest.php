@@ -21,7 +21,11 @@ use SmartDato\CorreosShipping\Requests\Preregister\ValidateShipmentsRequest;
 use SmartDato\CorreosShipping\Resources\PreregisterResource;
 
 beforeEach(function () {
-    Cache::put('correos_oauth_token', 'fake-test-token', 3600);
+    Cache::put(
+        (new CorreosAuthenticator('id', 'secret', 'https://example.com/token', 'AP3', 'gw-id', 'gw-secret'))->cacheKey(),
+        'fake-test-token',
+        3600,
+    );
 });
 
 function preregisterConnector(): PreregisterConnector

@@ -9,6 +9,12 @@ use Saloon\Http\PendingRequest;
 
 class CorreosAuthenticator implements Authenticator
 {
+    protected const CACHE_KEY_PREFIX = 'correos_oauth_token';
+
+    protected const EXPIRY_BUFFER_SECONDS = 60;
+
+    protected const FALLBACK_TTL_SECONDS = 1500;
+
     public function __construct(
         protected string $oauthClientId,
         protected string $oauthClientSecret,
@@ -29,11 +35,31 @@ class CorreosAuthenticator implements Authenticator
         $pendingRequest->headers()->add('client_secret', $this->gatewayClientSecret);
     }
 
+    public function cacheKey(): string
+    {
+        $accountHash = md5(implode('|', [
+            $this->tokenUrl,
+            $this->oauthClientId,
+            $this->oauthClientSecret,
+            $this->scope,
+        ]));
+
+        return self::CACHE_KEY_PREFIX.':'.$accountHash;
+    }
+
     protected function getToken(): string
     {
-        return Cache::remember('correos_oauth_token', $this->getTokenTtl(), function () {
-            return $this->fetchToken();
-        });
+        $cachedToken = Cache::get($this->cacheKey());
+
+        if ($cachedToken) {
+            return $cachedToken;
+        }
+
+        $token = $this->fetchToken();
+
+        Cache::put($this->cacheKey(), $token, $this->getTokenTtl($token));
+
+        return $token;
     }
 
     protected function fetchToken(): string
@@ -55,8 +81,41 @@ class CorreosAuthenticator implements Authenticator
         return $response->json('idToken');
     }
 
-    protected function getTokenTtl(): int
+    /**
+     * The token lifetime varies per environment (30 min observed on production),
+     * so the TTL is derived from the JWT `exp` claim instead of a fixed value.
+     */
+    protected function getTokenTtl(string $token): int
     {
-        return 3300; // 55 minutes (token typically valid for 60 min)
+        $expiresAt = $this->resolveJwtExpiry($token);
+
+        if (! $expiresAt) {
+            return self::FALLBACK_TTL_SECONDS;
+        }
+
+        return max($expiresAt - time() - self::EXPIRY_BUFFER_SECONDS, 0);
+    }
+
+    protected function resolveJwtExpiry(string $token): ?int
+    {
+        $segments = explode('.', $token);
+
+        if (count($segments) !== 3) {
+            return null;
+        }
+
+        $payload = json_decode(base64_decode(strtr($segments[1], '-_', '+/')), true);
+
+        if (! is_array($payload)) {
+            return null;
+        }
+
+        $expiry = $payload['exp'] ?? null;
+
+        if (! is_numeric($expiry)) {
+            return null;
+        }
+
+        return (int) $expiry;
     }
 }

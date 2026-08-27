@@ -18,6 +18,7 @@ use SmartDato\CorreosShipping\Auth\CorreosAuthenticator;
 use SmartDato\CorreosShipping\Connectors\PreregisterConnector;
 use SmartDato\CorreosShipping\Data\Preregister\DeliveryRequestData;
 use SmartDato\CorreosShipping\Data\Preregister\DeliveryResponseData;
+use SmartDato\CorreosShipping\Requests\Preregister\ValidateShipmentsRequest;
 use SmartDato\CorreosShipping\Resources\PreregisterResource;
 
 function sandboxAvailable(): bool
@@ -106,7 +107,7 @@ function sandboxShipmentRequest(): DeliveryRequestData
 }
 
 it('can obtain an OAuth token from the PRE sandbox', function () {
-    Cache::forget('correos_oauth_token');
+    Cache::flush();
     loadSandboxEnv();
 
     Http::globalOptions(['verify' => false]);
@@ -127,12 +128,12 @@ it('can obtain an OAuth token from the PRE sandbox', function () {
     ->skip(fn () => ! sandboxAvailable(), 'Skipped: .env.testing not found');
 
 it('can validate a shipment against the PRE sandbox', function () {
-    Cache::forget('correos_oauth_token');
+    Cache::flush();
 
     $connector = sandboxPreregisterConnector();
 
     $rawResponse = $connector->send(
-        new \SmartDato\CorreosShipping\Requests\Preregister\ValidateShipmentsRequest(sandboxShipmentRequest())
+        new ValidateShipmentsRequest(sandboxShipmentRequest())
     );
 
     dump('HTTP status:', $rawResponse->status());
@@ -148,7 +149,7 @@ it('can validate a shipment against the PRE sandbox', function () {
     ->skip(fn () => ! sandboxAvailable(), 'Skipped: .env.testing not found');
 
 it('can create a shipment against the PRE sandbox', function () {
-    Cache::forget('correos_oauth_token');
+    Cache::flush();
 
     $connector = sandboxPreregisterConnector();
     $resource = new PreregisterResource($connector);

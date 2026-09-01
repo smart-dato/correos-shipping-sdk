@@ -152,10 +152,15 @@ use SmartDato\CorreosShipping\Data\Labels\PrintLabelsRequestData;
 
 $labelRequest = PrintLabelsRequestData::from([
     'documentationType' => 1, // 0=All, 1=Label, 2=CN22/CN23
+    'application' => 'P3',
     'print' => [
-        'shipments' => ['PQXYZ1234567890'],
+        'shipments' => ['PQ1DR4A0000012345678'],
         'labelFormat' => 2,    // 1=XML, 2=PDF, 3=ZPL
         'labelPrintMode' => 1, // 1=A4, 2=Labeler
+        'preregisterInd' => 1, // 1=the codes are preregistered shipments
+        'labelOrderType' => 4, // 4=PackageId, see LabelOrderType
+        'labelPrintInitialPosition' => 1,
+        'clientLogo' => '',
     ],
 ]);
 

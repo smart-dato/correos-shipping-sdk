@@ -14,6 +14,7 @@ class PrintData extends Data
         public array $shipments,
         public int $labelFormat,
         public int $labelPrintMode,
+        public int|Optional $preregisterInd,
         public int|Optional $labelOrderType,
         public int|Optional $labelPrintInitialPosition,
         public string|Optional $clientLogo,
